@@ -9,5 +9,8 @@
     <title><![CDATA[test data]]></title>
     <url>%2F2014%2F07%2F14%2Ftest-data%2F</url>
     <content type="text"></content>
+      <tags>
+        <tag>haha</tag>
+      </tags>
   </entry>
 </search>
