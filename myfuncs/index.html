@@ -17,13 +17,13 @@
 
 <meta name="description" content="Good good study, day day up!">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
+<meta property="og:title" content="快捷功能">
 <meta property="og:url" content="https://github.com/chengu/chengu.github.io/myfuncs/index.html">
 <meta property="og:site_name" content="Rottens&#39;s blog">
 <meta property="og:description" content="Good good study, day day up!">
-<meta property="og:updated_time" content="2017-07-14T06:13:54.000Z">
+<meta property="og:updated_time" content="2017-07-16T07:26:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
+<meta name="twitter:title" content="快捷功能">
 <meta name="twitter:description" content="Good good study, day day up!">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -54,7 +54,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>标签 | Rottens&#39;s blog</title>
+<title>快捷功能 | Rottens&#39;s blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -70,7 +70,7 @@
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: undefined
+        search: true
     }
 </script>
 
@@ -105,6 +105,13 @@
         
 
         
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
 
 
         
@@ -123,9 +130,9 @@
                         
                             <li><a href="/tags/">标签</a></li>
                         
-                            <li><a href="/photos/">照片</a></li>
+                            <li><a href="/photos/">相册</a></li>
                         
-                            <li><a href="/myfuncs/">快捷功能</a></li>
+                            <li><a href="/myfuncs/">快捷</a></li>
                         
                             <li><a href="/about/">关于我</a></li>
                         
@@ -186,9 +193,9 @@
                 
                     <li><a href="/tags/">标签</a></li>
                 
-                    <li><a href="/photos/">照片</a></li>
+                    <li><a href="/photos/">相册</a></li>
                 
-                    <li><a href="/myfuncs/">快捷功能</a></li>
+                    <li><a href="/myfuncs/">快捷</a></li>
                 
                     <li><a href="/about/">关于我</a></li>
                 
@@ -233,7 +240,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      标签
+      快捷功能
     </h1>
   
 
