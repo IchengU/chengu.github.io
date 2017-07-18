@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/chengu/chengu.github.io/2016/07/18/selenium-phantomjs%E6%8A%93%E5%8F%96%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%95%B0%E6%8D%AE/</loc>
+    
+    <lastmod>2017-07-18T11:10:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/chengu/chengu.github.io/myfuncs/website/index.html</loc>
     
     <lastmod>2017-07-18T08:38:50.000Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://github.com/chengu/chengu.github.io/myfuncs/course/index.html</loc>
     
     <lastmod>2017-07-18T08:26:02.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://github.com/chengu/chengu.github.io/2014/07/18/selenium-phantomjs%E6%8A%93%E5%8F%96%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%95%B0%E6%8D%AE/</loc>
-    
-    <lastmod>2017-07-18T08:16:43.000Z</lastmod>
     
   </url>
   
