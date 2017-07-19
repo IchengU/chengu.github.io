@@ -60,4 +60,32 @@
     
   </entry>
   
+  <entry>
+    <title>mac系统下，用excel打开csv文件，中文乱码问题</title>
+    <link href="https://github.com/chengu/chengu.github.io/2014/03/25/mac%E7%B3%BB%E7%BB%9F%E4%B8%8B%EF%BC%8C%E7%94%A8excel%E6%89%93%E5%BC%80csv%E6%96%87%E4%BB%B6%EF%BC%8C%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/"/>
+    <id>https://github.com/chengu/chengu.github.io/2014/03/25/mac系统下，用excel打开csv文件，中文乱码问题/</id>
+    <published>2014-03-25T05:21:26.000Z</published>
+    <updated>2017-07-19T05:34:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>csv中文乱码问题</strong></p>
+<p>今天要导出在mongo的数据，直接输入命令<br><code>mongoexport -d test -c testitem --type=csv -f name,phone,tel,address -o ./test.csv</code></p>
+<p>导出后直接用excel打开，发现中文全是乱码。于是google，发现用excel导入文本的方式也出错(可能是我的文件里本身数据有一些格式问题)、使用sublime另存utf-8格式也是不行。很是纠结，正准备自己写个脚本来完成的时候，找到了问题的解决方法：<br>命令行输入：<br><code>iconv -f UTF8 -t GB18030 test.csv &gt;test_new.csv</code><br>发现好使。</p>
+<p>另外一种方式：直接将mac电脑上导出的test.csv发到windows上，用wps打开也是正常的，另存为xls格式，再发回mac上，用excel打开也是正常的了。</p>
+<p>特做此备忘遇坑问题记录！！！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;csv中文乱码问题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;今天要导出在mongo的数据，直接输入命令&lt;br&gt;&lt;code&gt;mongoexport -d test -c testitem --type=csv -f name,phone,tel,address -o 
+    
+    </summary>
+    
+      <category term="Question" scheme="https://github.com/chengu/chengu.github.io/categories/Question/"/>
+    
+    
+      <category term="遇坑记录" scheme="https://github.com/chengu/chengu.github.io/tags/%E9%81%87%E5%9D%91%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
+  
 </feed>
