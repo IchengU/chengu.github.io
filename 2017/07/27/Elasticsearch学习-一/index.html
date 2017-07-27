@@ -1,28 +1,268 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Rottens&#39;s blog</title>
-  <subtitle>努力什么时候都不会晚，加油！</subtitle>
-  <link href="/atom.xml" rel="self"/>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Rottens" />
+
+
+
+<meta name="description" content="对于全文检索，只是在刚毕业时研究过sphinx的皮毛，当时项目中选用了sphinx的中文版coreseek，感觉真心强大。而在后来的工作中，也没有再去深入的研究过，而之后看到的文章中，提到最多的只有Solr、Lucene、Elasticsearch这三个基于java的全文检索库，今天工作之余，好好研究一番。 先做了下术语调查，发现Solr与Lucene现在都是Apache基金在维护，Lucene只">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch学习(一)">
+<meta property="og:url" content="https://github.com/chengu/chengu.github.io/2017/07/27/Elasticsearch学习-一/index.html">
+<meta property="og:site_name" content="Rottens&#39;s blog">
+<meta property="og:description" content="对于全文检索，只是在刚毕业时研究过sphinx的皮毛，当时项目中选用了sphinx的中文版coreseek，感觉真心强大。而在后来的工作中，也没有再去深入的研究过，而之后看到的文章中，提到最多的只有Solr、Lucene、Elasticsearch这三个基于java的全文检索库，今天工作之余，好好研究一番。 先做了下术语调查，发现Solr与Lucene现在都是Apache基金在维护，Lucene只">
+<meta property="og:updated_time" content="2017-07-27T15:24:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch学习(一)">
+<meta name="twitter:description" content="对于全文检索，只是在刚毕业时研究过sphinx的皮毛，当时项目中选用了sphinx的中文版coreseek，感觉真心强大。而在后来的工作中，也没有再去深入的研究过，而之后看到的文章中，提到最多的只有Solr、Lucene、Elasticsearch这三个基于java的全文检索库，今天工作之余，好好研究一番。 先做了下术语调查，发现Solr与Lucene现在都是Apache基金在维护，Lucene只">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Elasticsearch学习(一) | Rottens&#39;s blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Rottens</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">努力什么时候都不会晚，加油！</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                            <li><a href="/tags/">标签</a></li>
+                        
+                            <li><a href="/photos/">相册</a></li>
+                        
+                            <li><a href="/myfuncs/">快捷</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:chengu@city229.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/3181405777" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/chengu" title="GitHub"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/cgbaby/" title="博客园"></a>
+                            
+                                <a class="fa CSDN" href="http://blog.csdn.net/jiaziming1990" title="CSDN"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Rottens</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Rottens</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">努力什么时候都不会晚，加油！</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                    <li><a href="/tags/">标签</a></li>
+                
+                    <li><a href="/photos/">相册</a></li>
+                
+                    <li><a href="/myfuncs/">快捷</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:chengu@city229.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/3181405777" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/chengu" title="GitHub"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/cgbaby/" title="博客园"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="http://blog.csdn.net/jiaziming1990" title="CSDN"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Elasticsearch学习-一" class="article article-type-post" itemscope itemprop="blogPost">
   
-  <link href="https://github.com/chengu/chengu.github.io/"/>
-  <updated>2017-07-27T15:24:05.000Z</updated>
-  <id>https://github.com/chengu/chengu.github.io/</id>
+    <div class="article-meta">
+      <a href="/2017/07/27/Elasticsearch学习-一/" class="article-date">
+      <time datetime="2017-07-27T12:31:11.000Z" itemprop="datePublished">2017-07-27</time>
+</a>
+
+
+    </div>
   
-  <author>
-    <name>Rottens</name>
+  <div class="article-inner">
     
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Elasticsearch学习(一)</title>
-    <link href="https://github.com/chengu/chengu.github.io/2017/07/27/Elasticsearch%E5%AD%A6%E4%B9%A0-%E4%B8%80/"/>
-    <id>https://github.com/chengu/chengu.github.io/2017/07/27/Elasticsearch学习-一/</id>
-    <published>2017-07-27T12:31:11.000Z</published>
-    <updated>2017-07-27T15:24:05.000Z</updated>
+      <input type="hidden" class="isFancy" />
     
-    <content type="html"><![CDATA[<p>对于全文检索，只是在刚毕业时研究过sphinx的皮毛，当时项目中选用了sphinx的中文版coreseek，感觉真心强大。而在后来的工作中，也没有再去深入的研究过，而之后看到的文章中，提到最多的只有Solr、Lucene、Elasticsearch这三个基于java的全文检索库，今天工作之余，好好研究一番。</p>
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Elasticsearch学习(一)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/全文检索/">全文检索</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elasticsearch/">Elasticsearch</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>对于全文检索，只是在刚毕业时研究过sphinx的皮毛，当时项目中选用了sphinx的中文版coreseek，感觉真心强大。而在后来的工作中，也没有再去深入的研究过，而之后看到的文章中，提到最多的只有Solr、Lucene、Elasticsearch这三个基于java的全文检索库，今天工作之余，好好研究一番。</p>
 <p>先做了下术语调查，发现Solr与Lucene现在都是Apache基金在维护，Lucene只是一个java框架，如果想使用的话必须要使用java，在程序中集成，了解其原理，所以要求相对较高了。而Solr是最流行的企业级搜索引擎，Solr4 还增加了NoSQL支持，它成熟稳定，还支持html、pdf、doc、xls、json、xml、csv等多种格式的索引。但其缺点也相对明显，数据量增大、搜索效率会降低，实时搜索会阻塞io，效率不高。<br>Elasticsearch是一个建立在全文搜索引擎 Apache Lucene™ 基础上的搜索引擎，可以说Lucene是当今最先进，最高效的全功能开源搜索引擎框架，使用它做全文搜索时，只需要使用统一开发好的API即可，而不需要了解其背后复杂的Lucene的运行原理。它在全文搜索、实时搜索、分布式搜索、无缝扩展机器处理pb级别数据等方面都非常出色。因此，这里我选择研究Elasticsearch，并记录下自己的所有理解。</p>
 <ol>
 <li><p>安装<br>首先从官网下载安装包：<a href="https://www.elastic.co/downloads/elasticsearch，这里我下载的是zip包，版本5.5.1。" target="_blank" rel="external">https://www.elastic.co/downloads/elasticsearch，这里我下载的是zip包，版本5.5.1。</a><br>接下来解压文件<br><code>unzip elasticsearch-5.5.1.zip</code>  </p>
@@ -53,92 +293,169 @@
 <p>返回结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">&quot;all_interests&quot;: &#123;</div><div class="line">	&quot;buckets&quot;: [</div><div class="line">	&#123;</div><div class="line">		&quot;key&quot;: &quot;music&quot;,</div><div class="line">			&quot;doc_count&quot;: 2</div><div class="line">	&#125;,</div><div class="line">	&#123;</div><div class="line">		&quot;key&quot;: &quot;sports&quot;,</div><div class="line">		&quot;doc_count&quot;: 1</div><div class="line">	&#125;</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>聚合也允许分级汇总。例如，让我们统计每种兴趣下职员的平均年龄：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">GET /megacorp/employee/_search</div><div class="line">&#123;</div><div class="line">	&quot;aggs&quot; : &#123;</div><div class="line">		&quot;all_interests&quot; : &#123;</div><div class="line">			&quot;terms&quot; : &#123; &quot;field&quot; : &quot;interests&quot; &#125;,</div><div class="line">				&quot;aggs&quot; : &#123;</div><div class="line">					&quot;avg_age&quot; : &#123;</div><div class="line">						&quot;avg&quot; : &#123; &quot;field&quot; : &quot;age&quot; &#125;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>返回结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">&quot;all_interests&quot;: &#123;</div><div class="line">	&quot;buckets&quot;: [</div><div class="line">	&#123;</div><div class="line">		&quot;key&quot;: &quot;music&quot;,</div><div class="line">			&quot;doc_count&quot;: 2,</div><div class="line">			&quot;avg_age&quot;: &#123;</div><div class="line">				&quot;value&quot;: 28.5</div><div class="line">			&#125;</div><div class="line">	&#125;,</div><div class="line">	&#123;</div><div class="line">		&quot;key&quot;: &quot;forestry&quot;,</div><div class="line">		&quot;doc_count&quot;: 1,</div><div class="line">		&quot;avg_age&quot;: &#123;</div><div class="line">			&quot;value&quot;: 35</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	&#123;</div><div class="line">		&quot;key&quot;: &quot;sports&quot;,</div><div class="line">		&quot;doc_count&quot;: 1,</div><div class="line">		&quot;avg_age&quot;: &#123;</div><div class="line">			&quot;value&quot;: 25</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
+
+      
+    </div>
     
-    <summary type="html">
-    
-      &lt;p&gt;对于全文检索，只是在刚毕业时研究过sphinx的皮毛，当时项目中选用了sphinx的中文版coreseek，感觉真心强大。而在后来的工作中，也没有再去深入的研究过，而之后看到的文章中，提到最多的只有Solr、Lucene、Elasticsearch这三个基于java的全文检
-    
-    </summary>
-    
-      <category term="全文检索" scheme="https://github.com/chengu/chengu.github.io/categories/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/"/>
-    
-    
-      <category term="Elasticsearch" scheme="https://github.com/chengu/chengu.github.io/tags/Elasticsearch/"/>
-    
-  </entry>
+  </div>
   
-  <entry>
-    <title>selenium+phantomjs抓取动态网页数据</title>
-    <link href="https://github.com/chengu/chengu.github.io/2016/07/18/selenium-phantomjs%E6%8A%93%E5%8F%96%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E6%95%B0%E6%8D%AE/"/>
-    <id>https://github.com/chengu/chengu.github.io/2016/07/18/selenium-phantomjs抓取动态网页数据/</id>
-    <published>2016-07-18T08:01:01.000Z</published>
-    <updated>2017-07-18T14:20:15.000Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>接到fang88的技术考核题，要求如下</strong>:</p>
-<ol>
-<li>使用python3</li>
-<li>只写一个crawl.py文件，传递url参数<blockquote>
-<p><strong>url示例</strong>：<br><a href="https://www.lennar.com/new-homes/washington/seattle" target="_blank" rel="external">https://www.lennar.com/new-homes/washington/seattle</a><br><a href="https://www.lennar.com/new-homes/texas/houston" target="_blank" rel="external">https://www.lennar.com/new-homes/texas/houston</a></p>
-</blockquote>
-</li>
-<li>爬取后的数据ajax抛给指定的接口。</li>
-</ol>
-<hr>
-<p>因为经常会爬一些数据，所以大体看了一下，就一个网址，感觉应该挺简单的。<br>考虑到平时都用py2的scrapy来做爬虫，今天正好再熟悉下py3，也没有用bs4，因为最近发现lxml的xpath解析挺爽的<br>直接代码开撸，嘿嘿！</p>
-<p>首先，根据要求，需要拿到参数，命令行如下:<br><code>python3 crawl.py https://www.lennar.com/new-homes/washington/seattle</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if len(argv) != 2:</div><div class="line">	print(&apos;参数格式错误&apos;)</div><div class="line">else:</div><div class="line">	print(argv[1])</div></pre></td></tr></table></figure></p>
-<p>开始分析网址、抓取数据，分析网页内容，发现都是动态数据，因此选择用selenium和phantomjs来抓取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">driver = webdriver.PhantomJS(executable_path=&apos;/Users/apple/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs&apos;)</div><div class="line">driver.get(url)</div><div class="line">selector = etree.HTML(driver.page_source.encode(&apos;utf-8&apos;))</div><div class="line">items = selector.xpath(&apos;//div[@class=&quot;comm-item clearfix&quot;]&apos;)</div><div class="line">	for item in items:</div><div class="line">		temp = item.xpath(&apos;./h1/a/text()&apos;)</div><div class="line">		name = temp[0] if len(temp) &gt; 0 else &apos;&apos;</div><div class="line">		temp = item.xpath(&apos;./h2/a/text()&apos;)</div><div class="line">		name = name + &apos; &apos; + (temp[0] if len(temp) &gt; 0 else &apos;&apos;)</div><div class="line">		print(name)</div></pre></td></tr></table></figure></p>
-<p>通过上述代码，很快就抓到首页要的内容，接下来准备抓分页，发现是#标签，然后用chrome来network检查元素，查看post的接口，找到相关的，但post的参数太多，所以想用之前做模拟登陆时的模拟点击来实现，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">driver.find_element_by_xpath(&apos;//div[@class=&quot;sptop&quot;]//a[@class=&quot;ir next&quot;]&apos;).click()</div></pre></td></tr></table></figure></p>
-<p>运行调试，报错了：<br><code>ElementNotVisibleException</code><br>通过报错，然后按以往的经验，加上延时，发现仍然无效，不明所以之后，尝试其他链接的模拟点击，发现可以。最后选择最原始也是最有效的调用js方法来解决。(如果有哪位高人知道原因，可以告诉我，非常感谢)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with open(&apos;test.html&apos;, &apos;w+&apos;) as f:</div><div class="line">	f.write(driver.page_source)</div></pre></td></tr></table></figure></p>
-<p>保存下网页，去查看相关的js及变量的内容。通过检查发现调用了两个接口，先做第一个接口，分析参数为页面里js的变量，于是通过js来得到:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">acetParams = driver.execute_script(&quot;return facetContextJSON.params&quot;)</div><div class="line">pageState = driver.execute_script(&quot;return pageState&quot;)</div></pre></td></tr></table></figure></p>
-<p>接着通过postman来抓取的header，复制进去，并通过xpath抓取到总页数，通过requests来获取json数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def get_otherpage(page, facetParams, pageState, headers):</div><div class="line">	pageState[&apos;pn&apos;] = page</div><div class="line">	payload = json.dumps(&#123;&apos;searchState&apos;:facetParams, &apos;pageState&apos;: pageState&#125;)</div><div class="line">	url = &apos;https://cn.lennar.com/Services/REST/Facets.svc/GetFacetResults&apos;</div><div class="line">	response = requests.request(&quot;POST&quot;, url, data=payload, headers=headers)</div></pre></td></tr></table></figure></p>
-<p>发现成功获取json结果，接着分析第二个接口，参数是第一个接口的返回部分数据，执行代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">url = &quot;https://cn.lennar.com/Services/Rest/SearchMethods.svc/GetCommunityDetails&quot;</div><div class="line">pageState.update(&#123;&quot;pt&quot;:&quot;C&quot;,&quot;ic&quot;:19,&quot;ss&quot;:0,&quot;attr&quot;:&quot;No    ne&quot;,&quot;ius&quot;:False&#125;)</div><div class="line">payload = json.dumps(&#123;&apos;facetResults&apos;: response.json()[&apos;fr&apos;], &apos;pageState&apos;:pageState&#125;)</div><div class="line">response = requests.request(&quot;POST&quot;, url, data=payload, headers=headers)</div><div class="line">for item in response.json():</div><div class="line">	name = item[&apos;cnm&apos;]</div><div class="line">	if item[&apos;mcm&apos;]:</div><div class="line">		name += item[&apos;mcm&apos;]</div><div class="line">	print(name)</div></pre></td></tr></table></figure></p>
-<p>到此，所有需求的数据都可以得到了。因为只是测试，所以没有封装成类，也直接使用了postman抓到的cookie.<br>测试代码在<a href="https://github.com/chengu/simple_crawls/blob/master/fang88.py">github</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;接到fang88的技术考核题，要求如下&lt;/strong&gt;:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;使用python3&lt;/li&gt;
-&lt;li&gt;只写一个crawl.py文件，传递url参数&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;url示例&lt;/strong&gt;：&lt;br&gt;&lt;a
-    
-    </summary>
-    
-      <category term="Python" scheme="https://github.com/chengu/chengu.github.io/categories/Python/"/>
-    
-    
-      <category term="爬虫" scheme="https://github.com/chengu/chengu.github.io/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/07/18/selenium-phantomjs抓取动态网页数据/">
+                    selenium+phantomjs抓取动态网页数据
+                </a>
+            </div>
+        
+    </nav>
+
   
-  <entry>
-    <title>mac系统下，用excel打开csv文件，中文乱码问题</title>
-    <link href="https://github.com/chengu/chengu.github.io/2014/03/25/mac%E7%B3%BB%E7%BB%9F%E4%B8%8B%EF%BC%8C%E7%94%A8excel%E6%89%93%E5%BC%80csv%E6%96%87%E4%BB%B6%EF%BC%8C%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/"/>
-    <id>https://github.com/chengu/chengu.github.io/2014/03/25/mac系统下，用excel打开csv文件，中文乱码问题/</id>
-    <published>2014-03-25T05:21:26.000Z</published>
-    <updated>2017-07-19T05:34:42.000Z</updated>
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用"><span class="toc-number">1.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#检索"><span class="toc-number">1.0.1.</span> <span class="toc-text">检索</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#聚合，就是完成数据的统计分析，类似于sql的group-by"><span class="toc-number">1.0.2.</span> <span class="toc-text">聚合，就是完成数据的统计分析，类似于sql的group by</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
     
-    <content type="html"><![CDATA[<p><strong>csv中文乱码问题</strong></p>
-<p>今天要导出在mongo的数据，直接输入命令<br><code>mongoexport -d test -c testitem --type=csv -f name,phone,tel,address -o ./test.csv</code></p>
-<p>导出后直接用excel打开，发现中文全是乱码。于是google，发现用excel导入文本的方式也出错(可能是我的文件里本身数据有一些格式问题)、使用sublime另存utf-8格式也是不行。很是纠结，正准备自己写个脚本来完成的时候，找到了问题的解决方法：<br>命令行输入：<br><code>iconv -f UTF8 -t GB18030 test.csv &gt;test_new.csv</code><br>发现好使。</p>
-<p>另外一种方式：直接将mac电脑上导出的test.csv发到windows上，用wps打开也是正常的，另存为xls格式，再发回mac上，用excel打开也是正常的了。</p>
-<p>特做此备忘遇坑问题记录！！！</p>
-]]></content>
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/07/18/selenium-phantomjs抓取动态网页数据/" title="下一篇: selenium+phantomjs抓取动态网页数据">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/27/Elasticsearch学习-一/">Elasticsearch学习(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/18/selenium-phantomjs抓取动态网页数据/">selenium+phantomjs抓取动态网页数据</a></li><li class="post-list-item"><a class="post-list-link" href="/2014/03/25/mac系统下，用excel打开csv文件，中文乱码问题/">mac系统下，用excel打开csv文件，中文乱码问题</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2013-2017 Rottens
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
     
-    <summary type="html">
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 3;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
     
-      &lt;p&gt;&lt;strong&gt;csv中文乱码问题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;今天要导出在mongo的数据，直接输入命令&lt;br&gt;&lt;code&gt;mongoexport -d test -c testitem --type=csv -f name,phone,tel,address -o 
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
     
-    </summary>
-    
-      <category term="Question" scheme="https://github.com/chengu/chengu.github.io/categories/Question/"/>
-    
-    
-      <category term="遇坑记录" scheme="https://github.com/chengu/chengu.github.io/tags/%E9%81%87%E5%9D%91%E8%AE%B0%E5%BD%95/"/>
-    
-  </entry>
-  
-</feed>
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
