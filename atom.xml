@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/chengu/chengu.github.io/"/>
-  <updated>2017-07-27T15:24:05.000Z</updated>
+  <updated>2017-07-31T07:21:33.000Z</updated>
   <id>https://github.com/chengu/chengu.github.io/</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>将Centos的yum源更换为国内的阿里云源</title>
+    <link href="https://github.com/chengu/chengu.github.io/2017/07/31/%E5%B0%86Centos%E7%9A%84yum%E6%BA%90%E6%9B%B4%E6%8D%A2%E4%B8%BA%E5%9B%BD%E5%86%85%E7%9A%84%E9%98%BF%E9%87%8C%E4%BA%91%E6%BA%90/"/>
+    <id>https://github.com/chengu/chengu.github.io/2017/07/31/将Centos的yum源更换为国内的阿里云源/</id>
+    <published>2017-07-31T07:14:03.000Z</published>
+    <updated>2017-07-31T07:21:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>有的时候yum安装一些软件，直接404或者timeout，此时可以更改为国内的源。<br>阿里云Linux安装软件镜像源<br>阿里云是最近新出的一个镜像源。得益与阿里云的高速发展，这么大的需求，肯定会推出自己的镜像源。<br>阿里云Linux安装镜像源地址：<a href="http://mirrors.aliyun.com/" target="_blank" rel="external">http://mirrors.aliyun.com/</a><br>CentOS系统更换软件安装源<br>第一步：备份你的原镜像文件，以免出错后可以恢复。<br><code>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</code></p>
+<p>第二步：下载新的CentOS-Base.repo 到/etc/yum.repos.d/<br>CentOS 6<br><code>wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo</code><br>CentOS 7<br><code>wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</code><br>第三步：运行yum makecache生成缓存<br>yum clean all<br>yum makecache</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;有的时候yum安装一些软件，直接404或者timeout，此时可以更改为国内的源。&lt;br&gt;阿里云Linux安装软件镜像源&lt;br&gt;阿里云是最近新出的一个镜像源。得益与阿里云的高速发展，这么大的需求，肯定会推出自己的镜像源。&lt;br&gt;阿里云Linux安装镜像源地址：&lt;a href
+    
+    </summary>
+    
+      <category term="Question" scheme="https://github.com/chengu/chengu.github.io/categories/Question/"/>
+    
+    
+      <category term="问题汇总" scheme="https://github.com/chengu/chengu.github.io/tags/%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>Elasticsearch学习(一)</title>
@@ -118,7 +142,7 @@
     <link href="https://github.com/chengu/chengu.github.io/2014/03/25/mac%E7%B3%BB%E7%BB%9F%E4%B8%8B%EF%BC%8C%E7%94%A8excel%E6%89%93%E5%BC%80csv%E6%96%87%E4%BB%B6%EF%BC%8C%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/"/>
     <id>https://github.com/chengu/chengu.github.io/2014/03/25/mac系统下，用excel打开csv文件，中文乱码问题/</id>
     <published>2014-03-25T05:21:26.000Z</published>
-    <updated>2017-07-19T05:34:42.000Z</updated>
+    <updated>2017-07-31T07:18:57.000Z</updated>
     
     <content type="html"><![CDATA[<p><strong>csv中文乱码问题</strong></p>
 <p>今天要导出在mongo的数据，直接输入命令<br><code>mongoexport -d test -c testitem --type=csv -f name,phone,tel,address -o ./test.csv</code></p>
